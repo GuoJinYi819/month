@@ -10,6 +10,7 @@ import com.bw.guojiny.base.BaseActivity;
 import com.bw.guojiny.bean.LoginBean;
 import com.bw.guojiny.mvp.login.ILoginContract;
 import com.bw.guojiny.mvp.login.LoginPresenterImpl;
+import com.bw.guojiny.net.SpUtil;
 
 import java.util.HashMap;
 
@@ -87,7 +88,24 @@ public class MainActivity extends BaseActivity<LoginPresenterImpl> implements IL
 
     @Override
     public void onSuccess(LoginBean bean) {
-
+        if (bean != null) {
+            String message = bean.getMessage();
+            if (message.contains( "登录成功" )) {
+                LoginBean.ResultBean result = bean.getResult();
+                String sessionId = result.getSessionId();
+                int userId = result.getUserId();
+                SpUtil instance = SpUtil.getInstance();
+                instance.setData( "userId",String.valueOf( userId ) );
+                instance.setData( "sessionId",sessionId);
+                Intent intent = new Intent( MainActivity.this, HomePageActivity.class );
+                String phone = result.getPhone();
+                intent.putExtra( "phone",phone );
+                String headPic = result.getHeadPic();
+                intent.putExtra( "pic",headPic);
+                startActivity( intent );
+                finish();
+            }
+        }
     }
 
     @Override

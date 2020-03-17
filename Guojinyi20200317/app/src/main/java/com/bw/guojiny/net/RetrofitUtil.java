@@ -4,15 +4,22 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.bw.guojiny.App;
 import com.google.gson.Gson;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -38,6 +45,25 @@ public class RetrofitUtil {
                 .readTimeout( 5, TimeUnit.SECONDS )
                 .writeTimeout( 5, TimeUnit.SECONDS )
                 .addInterceptor( new HttpLoggingInterceptor().setLevel( HttpLoggingInterceptor.Level.BODY ) )
+                .addInterceptor( new Interceptor() {
+                    @NotNull
+                    @Override
+                    public Response intercept(@NotNull Chain chain) throws IOException {
+                        Request request = chain.request();
+                        Request.Builder builder = request.newBuilder();
+                        SpUtil instance = SpUtil.getInstance();
+                        String userId = instance.getData( "userId" );
+                        if (!TextUtils.isEmpty( userId )) {
+                            builder.addHeader( "userId",userId );
+                        }
+                        String sessionId = instance.getData( "sessionId" );
+                        if (!TextUtils.isEmpty( sessionId )) {
+                            builder.addHeader( "sessionId",sessionId );
+                        }
+                        Request newbuild = builder.build();
+                        return chain.proceed( newbuild );
+                    }
+                } )
                 .build();
         retrofit = new Retrofit.Builder()
                 .baseUrl( "http://mobile.bwstudent.com/small/" )

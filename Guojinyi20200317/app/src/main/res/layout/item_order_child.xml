@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/ivCommodityPic"
+        android:src="@mipmap/ic_launcher"
+        android:layout_width="60dp"
+        android:layout_height="60dp">
+
+    </ImageView>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp">
+        <TextView
+            android:id="@+id/tvCommodityName"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="哈哈哈哈哈哈哈哈滚滚滚滚滚"
+            android:maxLength="10"
+            android:gravity="center_vertical"
+            android:layout_height="0dp">
+
+        </TextView>
+        <TextView
+            android:id="@+id/tvCommodityPrice"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:text="11111"
+            android:gravity="center_vertical"
+            android:layout_height="0dp">
+
+        </TextView>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvSum"
+        android:layout_marginLeft="100dp"
+        android:text="11111"
+        android:layout_width="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_height="60dp">
+
+    </TextView>
+</LinearLayout>
