@@ -52,8 +52,8 @@ public class MainActivity extends BaseActivity<LoginPresenterImpl> implements IL
                 HashMap<String, String> hashMap = new HashMap<>();
                 String phone = editPhone.getText().toString().trim();
                 String pwd = editPwd.getText().toString().trim();
-                hashMap.put( "phone", "15621273708" );
-                hashMap.put( "pwd", "gjy2000" );
+                hashMap.put( "phone", phone );
+                hashMap.put( "pwd", pwd );
                 presenter.loginUser( hashMap );
                 break;
         }
